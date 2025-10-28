@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "pnpm install --prod=false --ignore-scripts && cd packages/core/mcp-server && pnpm install --ignore-scripts && pnpm build"
+buildCommand = "pnpm install --prod=false && pnpm --filter '@frogface/core-agent-base' build && pnpm --filter '@frogface/core-api-client' build && pnpm --filter '@frogface/core-knowledge-base' build && pnpm --filter '@frogface/agent-copywriter' build && pnpm --filter '@frogface/agent-archivist' build && pnpm --filter '@frogface/agent-edison-copywriter' build && pnpm --filter '@frogface/core-mcp' build"
 
 [deploy]
 startCommand = "node packages/core/mcp-server/dist/server.js"
