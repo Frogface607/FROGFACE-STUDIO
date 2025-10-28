@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "frogface-studio": {
+      "command": "node",
+      "args": [
+        "packages/core/mcp-server/dist/mcp-stdio.js"
+      ],
+      "env": {
+        "OPENROUTER_API_KEY": "your_openrouter_key_here",
+        "MCP_TRANSPORT": "stdio"
+      }
+    }
+  }
+}
+
