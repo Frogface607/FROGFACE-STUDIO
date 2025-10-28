@@ -11,7 +11,8 @@
     "start": "node dist/server.js",
     "start:prod": "pnpm build && node dist/server.js",
     "mcp-stdio": "node dist/mcp-stdio.js",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "railway:start": "node dist/server.js"
   },
   "dependencies": {
     "@frogface/core-agent-base": "workspace:*",
