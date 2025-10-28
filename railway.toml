@@ -1,8 +1,8 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "pnpm install --prod=false && pnpm --filter ./packages/core/api-client build && pnpm --filter ./packages/core/knowledge-base build && pnpm --filter ./packages/core/agent-base build && pnpm --filter ./packages/agents/copywriter build && pnpm --filter ./packages/agents/archivist build && pnpm --filter ./packages/agents/edison-copywriter build && pnpm --filter ./packages/core/mcp-server build"
+buildCommand = "pnpm install --prod=false && pnpm --filter './packages/core/api-client' build && pnpm --filter './packages/core/knowledge-base' build && pnpm --filter './packages/core/agent-base' build && pnpm --filter './packages/agents/copywriter' build && pnpm --filter './packages/agents/archivist' build && pnpm --filter './packages/agents/edison-copywriter' build && pnpm --filter './packages/core/mcp-server' build && ls -la packages/core/mcp-server/dist/ && test -f packages/core/mcp-server/dist/server.js || (echo 'ERROR: server.js not found after build!' && ls -la packages/core/mcp-server/ && exit 1)"
 
 [deploy]
-startCommand = "node packages/core/mcp-server/dist/server.js"
+startCommand = "cd /app && test -f packages/core/mcp-server/dist/server.js && node packages/core/mcp-server/dist/server.js || (echo 'ERROR: server.js not found!' && ls -la packages/core/mcp-server/dist/ && exit 1)"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
