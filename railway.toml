@@ -3,6 +3,6 @@ builder = "NIXPACKS"
 buildCommand = "pnpm install && pnpm --filter @frogface/core-mcp run build"
 
 [deploy]
-startCommand = "pnpm --filter @frogface/core-mcp run railway:start"
+startCommand = "cd packages/core/mcp-server && node dist/server.js"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
