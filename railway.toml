@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "pnpm install --prod=false && pnpm --filter '@frogface/core-api-client' build && pnpm --filter '@frogface/core-knowledge-base' build && pnpm --filter '@frogface/core-agent-base' build && pnpm --filter '@frogface/agent-copywriter' build && pnpm --filter '@frogface/agent-archivist' build && pnpm --filter '@frogface/agent-edison-copywriter' build && pnpm --filter '@frogface/core-mcp' build || (echo 'Build error!' && exit 1)"
+buildCommand = "pnpm install --prod=false && pnpm --filter ./packages/core/api-client build && pnpm --filter ./packages/core/knowledge-base build && pnpm --filter ./packages/core/agent-base build && pnpm --filter ./packages/agents/copywriter build && pnpm --filter ./packages/agents/archivist build && pnpm --filter ./packages/agents/edison-copywriter build && pnpm --filter ./packages/core/mcp-server build"
 
 [deploy]
 startCommand = "node packages/core/mcp-server/dist/server.js"
