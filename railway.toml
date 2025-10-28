@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "pnpm install --prod=false && cd packages/core/api-client && pnpm install && pnpm build && cd ../knowledge-base && pnpm install && pnpm build && cd ../agent-base && pnpm install && pnpm build && cd ../../agents/copywriter && pnpm install && pnpm build && cd ../archivist && pnpm install && pnpm build && cd ../edison-copywriter && pnpm install && pnpm build && cd ../../core/mcp-server && pnpm install && pnpm build && cd /app && ls -la packages/core/mcp-server/dist/"
+buildCommand = "pnpm install --prod=false && pnpm build"
 
 [deploy]
 startCommand = "cd /app && node packages/core/mcp-server/dist/server.js"
