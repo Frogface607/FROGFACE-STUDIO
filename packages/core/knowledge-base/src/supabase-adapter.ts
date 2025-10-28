@@ -119,7 +119,7 @@ CREATE INDEX IF NOT EXISTS idx_embedding ON knowledge_items USING ivfflat (embed
       throw new Error(`Supabase search error: ${response.status} - ${errorText}`)
     }
 
-    const items: KnowledgeItem[] = await response.json()
+      const items = await response.json() as KnowledgeItem[]
 
     return items.map((item) => ({
       content: item.content,
