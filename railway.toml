@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "cd /app && pnpm install --prod=false && cd packages/core/mcp-server && pnpm build"
+buildCommand = "pnpm install --prod=false --ignore-scripts && cd packages/core/mcp-server && pnpm install --ignore-scripts && pnpm build"
 
 [deploy]
 startCommand = "node packages/core/mcp-server/dist/server.js"

@@ -6,7 +6,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
+    "build": "tsc --skipLibCheck",
     "start": "node dist/server.js",
     "mcp-stdio": "node dist/mcp-stdio.js",
     "clean": "rm -rf dist"
