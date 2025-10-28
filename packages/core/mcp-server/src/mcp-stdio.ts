@@ -256,38 +256,42 @@ async function handleToolCall(params: any): Promise<any> {
  * Запуск MCP сервера через stdio
  */
 if (require.main === module) {
-  // Регистрируем обработчики для stdio
-  const readline = require('readline')
-  
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    terminal: false,
-  })
+  import('readline').then((readlineModule) => {
+    const readline = readlineModule.default || readlineModule
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+      terminal: false,
+    })
 
-  rl.on('line', async (line: string) => {
-    try {
-      const request = JSON.parse(line)
-      const response = await handleMCPRequest(request)
-      
-      console.log(JSON.stringify({
-        jsonrpc: '2.0',
-        id: request.id,
-        result: response,
-      }))
-    } catch (error) {
-      console.error(JSON.stringify({
-        jsonrpc: '2.0',
-        id: (error as any).id || null,
-        error: {
-          code: -1,
-          message: error instanceof Error ? error.message : 'Unknown error',
-        },
-      }))
-    }
-  })
+    rl.on('line', async (line: string) => {
+      try {
+        const request = JSON.parse(line)
+        const response = await handleMCPRequest(request)
+        
+        console.log(JSON.stringify({
+          jsonrpc: '2.0',
+          id: request.id,
+          result: response,
+        }))
+      } catch (error) {
+        const request = (error as any).request || {}
+        console.error(JSON.stringify({
+          jsonrpc: '2.0',
+          id: request.id || null,
+          error: {
+            code: -1,
+            message: error instanceof Error ? error.message : 'Unknown error',
+          },
+        }))
+      }
+    })
 
-  console.error('🐸 Frogface Studio MCP Server (stdio) запущен')
+    console.error('🐸 Frogface Studio MCP Server (stdio) запущен')
+  }).catch((error) => {
+    console.error('Ошибка запуска MCP сервера:', error)
+    process.exit(1)
+  })
 }
 
 export { handleMCPRequest, MCP_TOOLS }
