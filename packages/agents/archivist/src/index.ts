@@ -4,6 +4,8 @@ import {
   loadFromTextFile,
   loadFromJSONFile,
 } from '@frogface/core-knowledge-base'
+import { processFile } from './file-handlers'
+import * as path from 'path'
 
 /**
  * Агент-архивариус
@@ -360,16 +362,25 @@ ${content.length > 200 ? content.substring(0, 200) + '...' : content}
       }
     }
 
-    // Если есть filePath, читаем файл
+    // Если есть filePath, читаем и обрабатываем файл
     let fileContent = content
     if (filePath && !fileContent) {
       try {
         const fs = await import('fs/promises')
-        fileContent = await fs.readFile(filePath, 'utf-8')
+        const buffer = await fs.readFile(filePath)
+        fileContent = await processFile(fileName || path.basename(filePath), buffer)
       } catch (error) {
         return {
           result: `❌ Ошибка чтения файла: ${error instanceof Error ? error.message : 'Unknown error'}`,
         }
+      }
+    } else if (filePath && fileContent) {
+      // Если есть и путь и контент, обрабатываем контент через processFile
+      try {
+        const buffer = Buffer.from(fileContent, 'utf-8')
+        fileContent = await processFile(fileName || path.basename(filePath), buffer)
+      } catch {
+        // Если не получилось, оставляем как есть
       }
     }
 

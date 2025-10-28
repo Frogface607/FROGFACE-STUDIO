@@ -1,4 +1,5 @@
 import { callLLM } from '@frogface/core-api-client'
+import { SupabaseKnowledgeAdapter } from './supabase-adapter'
 
 /**
  * Результат поиска в базе знаний
@@ -12,7 +13,7 @@ export interface KnowledgeResult {
 
 /**
  * Тип хранилища для базы знаний
- * Пока используем in-memory хранилище, потом можно заменить на Firebase/ChromaDB
+ * Используем Supabase в продакшене, in-memory для разработки
  */
 interface KnowledgeItem {
   id: string
@@ -23,8 +24,35 @@ interface KnowledgeItem {
   createdAt: Date
 }
 
-// In-memory хранилище (заменить на реальную БД позже)
+// In-memory хранилище (fallback если Supabase не настроен)
 const knowledgeStore: Map<string, KnowledgeItem> = new Map()
+
+// Инициализация Supabase адаптера (если переменные окружения настроены)
+let supabaseAdapter: SupabaseKnowledgeAdapter | null = null
+
+function initSupabase(): SupabaseKnowledgeAdapter | null {
+  const url = process.env.SUPABASE_URL
+  const serviceKey = process.env.SUPABASE_SERVICE_KEY
+
+  if (url && serviceKey) {
+    try {
+      return new SupabaseKnowledgeAdapter({ url, serviceKey })
+    } catch (error) {
+      console.warn('⚠️ Не удалось инициализировать Supabase, используем in-memory хранилище:', error)
+      return null
+    }
+  }
+  
+  return null
+}
+
+// Инициализируем при первом использовании
+function getAdapter(): SupabaseKnowledgeAdapter | null {
+  if (!supabaseAdapter) {
+    supabaseAdapter = initSupabase()
+  }
+  return supabaseAdapter
+}
 
 /**
  * Добавить документ в базу знаний
@@ -34,8 +62,22 @@ export async function addToKnowledgeBase(
   namespace: string,
   metadata?: Record<string, unknown>
 ): Promise<string> {
-  const id = `${namespace}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+  const adapter = getAdapter()
 
+  // Используем Supabase если доступен
+  if (adapter) {
+    try {
+      const id = await adapter.add(content, namespace, metadata)
+      console.log(`✅ Добавлено в Supabase (${namespace}): ${content.substring(0, 50)}...`)
+      return id
+    } catch (error) {
+      console.warn('⚠️ Ошибка при сохранении в Supabase, используем in-memory:', error)
+      // Fallback на in-memory
+    }
+  }
+
+  // Fallback: in-memory хранилище
+  const id = `${namespace}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
   const item: KnowledgeItem = {
     id,
     content,
@@ -43,9 +85,8 @@ export async function addToKnowledgeBase(
     metadata,
     createdAt: new Date(),
   }
-
   knowledgeStore.set(id, item)
-  console.log(`✅ Добавлено в базу знаний (${namespace}): ${content.substring(0, 50)}...`)
+  console.log(`✅ Добавлено в in-memory (${namespace}): ${content.substring(0, 50)}...`)
   return id
 }
 
@@ -57,13 +98,28 @@ export async function queryKnowledgeBase(
   namespace: string,
   limit = 5
 ): Promise<KnowledgeResult[]> {
-  // Пока используем простой текстовый поиск
-  // Позже заменить на семантический поиск с embeddings
+  const adapter = getAdapter()
 
+  // Используем Supabase если доступен
+  if (adapter) {
+    try {
+      const results = await adapter.search(query, namespace, limit)
+      return results.map((r) => ({
+        content: r.content,
+        similarity: r.similarity,
+        source: r.metadata?.id as string | undefined,
+        metadata: r.metadata,
+      }))
+    } catch (error) {
+      console.warn('⚠️ Ошибка при поиске в Supabase, используем in-memory:', error)
+      // Fallback на in-memory
+    }
+  }
+
+  // Fallback: in-memory поиск
   const queryLower = query.toLowerCase()
   const items: KnowledgeItem[] = []
 
-  // Фильтруем по namespace и ищем совпадения
   for (const item of knowledgeStore.values()) {
     if (item.namespace === namespace) {
       const contentLower = item.content.toLowerCase()
@@ -73,17 +129,15 @@ export async function queryKnowledgeBase(
     }
   }
 
-  // Сортируем по релевантности (упрощенно)
   items.sort((a, b) => {
     const aScore = a.content.toLowerCase().includes(queryLower) ? 1 : 0
     const bScore = b.content.toLowerCase().includes(queryLower) ? 1 : 0
     return bScore - aScore
   })
 
-  // Берем топ N результатов
   return items.slice(0, limit).map((item) => ({
     content: item.content,
-    similarity: 0.8, // Заглушка для similarity score
+    similarity: 0.8,
     source: item.id,
     metadata: item.metadata,
   }))
@@ -113,7 +167,26 @@ export async function enhancedKnowledgeQuery(
 /**
  * Получить все документы из namespace
  */
-export function getAllFromNamespace(namespace: string): KnowledgeResult[] {
+export async function getAllFromNamespace(namespace: string): Promise<KnowledgeResult[]> {
+  const adapter = getAdapter()
+
+  // Используем Supabase если доступен
+  if (adapter) {
+    try {
+      const items = await adapter.getAll(namespace)
+      return items.map((item) => ({
+        content: item.content,
+        similarity: 1.0,
+        source: item.id,
+        metadata: item.metadata as Record<string, unknown> | undefined,
+      }))
+    } catch (error) {
+      console.warn('⚠️ Ошибка при получении из Supabase, используем in-memory:', error)
+      // Fallback на in-memory
+    }
+  }
+
+  // Fallback: in-memory
   const items: KnowledgeItem[] = []
   
   for (const item of knowledgeStore.values()) {

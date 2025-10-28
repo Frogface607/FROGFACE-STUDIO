@@ -1,0 +1,8 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "cd packages/core/mcp-server && pnpm start"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+

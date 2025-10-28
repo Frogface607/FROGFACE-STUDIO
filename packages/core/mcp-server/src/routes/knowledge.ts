@@ -82,7 +82,7 @@ export async function knowledgeRoutes(fastify: FastifyInstance) {
     const { namespace } = request.params
 
     try {
-      const results = getAllFromNamespace(namespace)
+      const results = await getAllFromNamespace(namespace)
       return reply.send({ success: true, data: results })
     } catch (error) {
       return reply.status(500).send({

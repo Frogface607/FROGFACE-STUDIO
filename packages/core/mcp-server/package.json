@@ -15,6 +15,7 @@
     "@frogface/core-agent-base": "workspace:*",
     "@frogface/core-knowledge-base": "workspace:*",
     "@frogface/agent-copywriter": "workspace:*",
+    "@frogface/agent-edison-copywriter": "workspace:*",
     "@frogface/agent-archivist": "workspace:*",
     "fastify": "^4.25.2",
     "@fastify/cors": "^8.5.0",

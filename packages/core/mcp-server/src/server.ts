@@ -204,7 +204,8 @@ const start = async () => {
     // Регистрируем всех агентов
     registerAllAgents()
     
-    const port = parseInt(process.env.MCP_PORT || '3001', 10)
+    // Railway использует переменную PORT, но мы можем также использовать MCP_PORT
+    const port = parseInt(process.env.PORT || process.env.MCP_PORT || '3001', 10)
     const host = process.env.MCP_HOST || '0.0.0.0'
 
     await fastify.listen({ port, host })

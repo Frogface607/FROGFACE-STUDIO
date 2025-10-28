@@ -1,0 +1,20 @@
+{
+  "name": "@frogface/agent-edison-copywriter",
+  "version": "1.0.0",
+  "description": "Специальный копирайтер для Edison Bar в стиле Edison Craft",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@frogface/core-agent-base": "workspace:*",
+    "@frogface/core-api-client": "workspace:*",
+    "@frogface/core-knowledge-base": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
+

@@ -47,8 +47,19 @@ export async function uploadRoutes(fastify: FastifyInstance) {
       const buffer = await data.toBuffer()
       await fs.writeFile(tmpPath, buffer)
 
-      // Читаем содержимое
-      const content = buffer.toString('utf-8')
+      // Обрабатываем файл в зависимости от типа
+      let content: string
+      try {
+        const { processFile } = await import('../../../agents/archivist/src/file-handlers')
+        content = await processFile(data.filename || 'file', buffer)
+      } catch (error) {
+        // Если обработчик не загрузился, используем простой способ
+        try {
+          content = buffer.toString('utf-8')
+        } catch {
+          content = buffer.toString('latin1')
+        }
+      }
 
       // Передаем архивариусу
       const task = {
