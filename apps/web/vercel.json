@@ -1,0 +1,7 @@
+{
+  "buildCommand": "cd ../.. && pnpm build --filter @frogface/web",
+  "installCommand": "cd ../.. && pnpm install",
+  "framework": "nextjs",
+  "outputDirectory": ".next"
+}
+

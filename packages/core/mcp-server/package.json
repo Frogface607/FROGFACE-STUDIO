@@ -1,0 +1,28 @@
+{
+  "name": "@frogface/core-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@frogface/core-agent-base": "workspace:*",
+    "@frogface/core-knowledge-base": "workspace:*",
+    "@frogface/agent-copywriter": "workspace:*",
+    "@frogface/agent-archivist": "workspace:*",
+    "fastify": "^4.25.2",
+    "@fastify/cors": "^8.5.0",
+    "@fastify/multipart": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3",
+    "tsx": "^4.7.0"
+  }
+}
+

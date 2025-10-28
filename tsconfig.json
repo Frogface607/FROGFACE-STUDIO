@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": false,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+    "incremental": true,
+    "jsx": "preserve",
+    "paths": {
+      "@frogface/core/*": ["./packages/core/*/src"],
+      "@frogface/agents/*": ["./packages/agents/*/src"],
+      "@frogface/integrations/*": ["./packages/integrations/*/src"]
+    }
+  },
+  "exclude": ["node_modules", "dist", ".next"]
+}
+
