@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "pnpm install && pnpm --filter @frogface/core-mcp run build"
+buildCommand = "pnpm install --prod=false && pnpm --filter @frogface/core-mcp run build"
 
 [deploy]
 startCommand = "node packages/core/mcp-server/dist/server.js"
