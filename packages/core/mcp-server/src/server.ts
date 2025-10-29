@@ -2,11 +2,11 @@ import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import { agentRegistry } from './registry'
 import { registerAllAgents } from './register-agents'
-import { seedKnowledgeBase, createKnowledgeStructure } from '../../knowledge-base/src/index'
+import { seedKnowledgeBase, createKnowledgeStructure } from '@frogface/core-knowledge-base'
 import { knowledgeRoutes } from './routes/knowledge'
 import { uploadRoutes } from './routes/upload'
 import type { MCPCommand, MCPResponse, TaskQueueItem } from './types'
-import { BaseAgent } from '../../agent-base/src/index'
+import { BaseAgent } from '@frogface/core-agent-base'
 
 const fastify = Fastify({
   logger: true,
