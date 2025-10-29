@@ -1,5 +1,4 @@
 {
-  "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
     "module": "CommonJS",
@@ -8,13 +7,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "../../..",
-    "paths": {
-      "@frogface/core-api-client": ["packages/core/api-client/src/index.ts"],
-      "@frogface/core-api-client/*": ["packages/core/api-client/src/*"],
-      "@frogface/core-knowledge-base": ["packages/core/knowledge-base/src/index.ts"],
-      "@frogface/core-knowledge-base/*": ["packages/core/knowledge-base/src/*"]
-    }
+    "noEmitOnError": false
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
