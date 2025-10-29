@@ -2,17 +2,16 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
     "module": "CommonJS",
     "moduleResolution": "node",
     "target": "ES2020",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
+    "baseUrl": "../../..",
     "paths": {
-      "@frogface/core-api-client": ["../api-client/src/index.ts"],
-      "@frogface/core-api-client/*": ["../api-client/src/*"]
+      "@frogface/core-api-client": ["packages/core/api-client/src/index.ts"],
+      "@frogface/core-api-client/*": ["packages/core/api-client/src/*"]
     }
   },
   "include": ["src/**/*"],
