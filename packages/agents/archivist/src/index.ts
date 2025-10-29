@@ -104,7 +104,7 @@ export class ArchivistAgent extends BaseAgent {
 
 📁 Namespace: ${targetNamespace}
 🏷️  Категория: ${classification.category}
-📝 Теги: ${metadata.tags?.join(', ') || 'нет'}
+📝 Теги: ${Array.isArray(metadata.tags) ? metadata.tags.join(', ') : 'нет'}
 📊 Уверенность: ${Math.round(classification.confidence * 100)}%
 🆔 ID: ${id}
 
