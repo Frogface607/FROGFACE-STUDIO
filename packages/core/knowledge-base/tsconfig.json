@@ -11,7 +11,12 @@
     "forceConsistentCasingInFileNames": true,
     "composite": true,
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@frogface/core-api-client": ["../api-client/src/index.ts"],
+      "@frogface/core-api-client/*": ["../api-client/src/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"],
