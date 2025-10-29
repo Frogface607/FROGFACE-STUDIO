@@ -11,7 +11,7 @@
     "noEmitOnError": false,
     "resolveJsonModule": true,
     "baseUrl": "../../..",
-    "typeRoots": ["../../../node_modules/@types", "node_modules/@types"],
+    "typeRoots": ["./node_modules/@types", "../../../node_modules/@types"],
     "paths": {
       "@frogface/core-api-client": ["packages/core/api-client/src/index.ts"],
       "@frogface/core-api-client/*": ["packages/core/api-client/src/*"],
