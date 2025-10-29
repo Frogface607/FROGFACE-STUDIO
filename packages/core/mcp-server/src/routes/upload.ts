@@ -50,7 +50,7 @@ export async function uploadRoutes(fastify: FastifyInstance) {
       // Обрабатываем файл в зависимости от типа
       let content: string
       try {
-        const { processFile } = await import('../../../agents/archivist/src/file-handlers')
+        const { processFile } = await import('../../../agents/archivist/src/file-handlers.js')
         content = await processFile(data.filename || 'file', buffer)
       } catch (error) {
         // Если обработчик не загрузился, используем простой способ

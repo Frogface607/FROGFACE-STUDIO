@@ -7,7 +7,7 @@
 
 import { agentRegistry } from './registry'
 import { registerAllAgents } from './register-agents'
-import { seedKnowledgeBase, createKnowledgeStructure } from '../../knowledge-base/src/index'
+import { seedKnowledgeBase, createKnowledgeStructure } from '@frogface/core-knowledge-base'
 
 /**
  * MCP Tools (функции, доступные ChatGPT)
@@ -233,7 +233,7 @@ async function handleToolCall(params: any): Promise<any> {
 
     case 'search_knowledge': {
       const { query, namespace = 'global', limit = 5 } = args
-      const { queryKnowledgeBase } = await import('../../knowledge-base/src/index')
+      const { queryKnowledgeBase } = await import('@frogface/core-knowledge-base')
       
       const results = await queryKnowledgeBase(query, namespace, limit)
       
