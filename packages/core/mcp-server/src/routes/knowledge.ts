@@ -10,7 +10,7 @@ import {
   removeFromKnowledgeBase,
   bulkLoadKnowledge,
   seedKnowledgeBase,
-} from '@frogface/core-knowledge-base'
+} from '../../knowledge-base/src/index'
 
 export async function knowledgeRoutes(fastify: FastifyInstance) {
   /**

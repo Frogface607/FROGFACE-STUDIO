@@ -1,9 +1,9 @@
-import { BaseAgent, Task, AgentResponse } from '@frogface/core-agent-base'
+import { BaseAgent, Task, AgentResponse } from '../../../core/agent-base/src/index'
 import {
   addToKnowledgeBase,
   loadFromTextFile,
   loadFromJSONFile,
-} from '@frogface/core-knowledge-base'
+} from '../../../core/knowledge-base/src/index'
 import { processFile } from './file-handlers'
 import * as path from 'path'
 

@@ -1,6 +1,6 @@
-import { BaseAgent, Task, AgentResponse } from '@frogface/core-agent-base'
-import { queryKnowledgeBase } from '@frogface/core-knowledge-base/src/index'
-import { callLLM, AVAILABLE_MODELS } from '@frogface/core-api-client/src/index'
+import { BaseAgent, Task, AgentResponse } from '../../../core/agent-base/src/index'
+import { queryKnowledgeBase } from '../../../core/knowledge-base/src/index'
+import { callLLM, AVAILABLE_MODELS } from '../../../core/api-client/src/index'
 
 /**
  * Специальный копирайтер для Edison Craft

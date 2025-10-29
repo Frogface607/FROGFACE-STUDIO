@@ -6,9 +6,9 @@
 import { agentRegistry } from './registry'
 
 // Импорт агентов
-import { CopywriterAgent } from '@frogface/agent-copywriter'
-import { ArchivistAgent } from '@frogface/agent-archivist'
-import { EdisonCopywriterAgent } from '@frogface/agent-edison-copywriter'
+import { CopywriterAgent } from '../../../agents/copywriter/src/index'
+import { ArchivistAgent } from '../../../agents/archivist/src/index'
+import { EdisonCopywriterAgent } from '../../../agents/edison-copywriter/src/index'
 // import { ResearcherAgent } from '@frogface/agent-researcher'
 // ... другие агенты
 

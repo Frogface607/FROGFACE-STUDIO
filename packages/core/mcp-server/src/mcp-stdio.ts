@@ -7,7 +7,7 @@
 
 import { agentRegistry } from './registry'
 import { registerAllAgents } from './register-agents'
-import { seedKnowledgeBase, createKnowledgeStructure } from '@frogface/core-knowledge-base'
+import { seedKnowledgeBase, createKnowledgeStructure } from '../../knowledge-base/src/index'
 
 /**
  * MCP Tools (функции, доступные ChatGPT)

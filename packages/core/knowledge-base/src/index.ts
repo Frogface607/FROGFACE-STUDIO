@@ -1,4 +1,4 @@
-import { callLLM } from '@frogface/core-api-client'
+import { callLLM } from '../../api-client/src/index'
 import { SupabaseKnowledgeAdapter } from './supabase-adapter'
 
 /**

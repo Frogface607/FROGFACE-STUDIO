@@ -1,4 +1,4 @@
-import { BaseAgent, Task, AgentResponse } from '@frogface/core-agent-base'
+import { BaseAgent, Task, AgentResponse } from '../../../core/agent-base/src/index'
 
 /**
  * Агент-копирайтер

@@ -1,4 +1,4 @@
-import { BaseAgent, Task, AgentResponse } from '@frogface/core-agent-base'
+import { BaseAgent, Task, AgentResponse } from '../../agent-base/src/index'
 
 /**
  * Типы для MCP-сервера

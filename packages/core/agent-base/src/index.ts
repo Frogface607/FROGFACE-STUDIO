@@ -1,5 +1,5 @@
-import { callLLM } from '@frogface/core-api-client'
-import { queryKnowledgeBase } from '@frogface/core-knowledge-base'
+import { callLLM } from '../../api-client/src/index'
+import { queryKnowledgeBase } from '../../knowledge-base/src/index'
 
 /**
  * Тип задачи для агента

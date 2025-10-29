@@ -1,4 +1,4 @@
-import { BaseAgent } from '@frogface/core-agent-base'
+import { BaseAgent } from '../../agent-base/src/index'
 import type { AgentRegistry } from './types'
 
 /**
