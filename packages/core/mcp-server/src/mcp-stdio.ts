@@ -233,7 +233,7 @@ async function handleToolCall(params: any): Promise<any> {
 
     case 'search_knowledge': {
       const { query, namespace = 'global', limit = 5 } = args
-      const { queryKnowledgeBase } = await import('@frogface/core-knowledge-base')
+      const { queryKnowledgeBase } = await import('../../knowledge-base/src/index')
       
       const results = await queryKnowledgeBase(query, namespace, limit)
       
